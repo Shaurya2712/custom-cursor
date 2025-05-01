@@ -1,8 +1,8 @@
 {
   "name": "react-animated-cursor-custom",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An custom animated custom cursor component in React.",
-  "author": "Sam",
+  "author": "develop4sam",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
@@ -40,7 +40,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/stephenscaff/react-animated-cursor"
+    "url": "https://github.com/Shaurya2712/custom-cursor"
   },
   "peerDependencies": {
     "react": "^18.2.0",
