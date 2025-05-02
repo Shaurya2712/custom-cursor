@@ -10,6 +10,8 @@ export interface AnimatedCursorOptions {
   outerScale?: number
   outerSize?: number
   outerStyle?: CSSProperties
+  enableOuterScale?: boolean
+  outerScaleAmount?: number
 }
 
 export type Clickable = string | ({ target: string } & AnimatedCursorOptions)
