@@ -38,6 +38,8 @@ import useIsTouchdevice from './hooks/useIsTouchdevice'
  * @param {number} obj.trailingSpeed - speed the outer cursor trails at
  * @param {bool}   obj.enableOuterScale - enable/disable outer cursor scaling
  * @param {number} obj.outerScaleAmount - Default scale amount for click/hold
+ * @param {bool}   obj.enableInnerScale - enable/disable inner cursor scaling
+ * @param {number} obj.innerScaleAmount - Default scale amount for click/hold
  */
 function CursorCore({
   clickables = [
@@ -65,7 +67,9 @@ function CursorCore({
   showSystemCursor = false,
   trailingSpeed = 8,
   enableOuterScale = true,
-  outerScaleAmount = 1.4
+  outerScaleAmount = 1.4,
+  enableInnerScale = true,
+  innerScaleAmount = 1.2
 }: AnimatedCursorProps) {
   const defaultOptions = useMemo(
     () => ({
@@ -200,7 +204,11 @@ function CursorCore({
   // Cursors Hover/Active State
   useEffect(() => {
     if (isActive) {
-      scaleBySize(cursorInnerRef.current, options.innerSize, options.innerScale)
+      scaleBySize(
+        cursorInnerRef.current,
+        options.innerSize,
+        enableInnerScale ? options.innerScale : 1
+      )
       scaleBySize(
         cursorOuterRef.current,
         options.outerSize,
@@ -217,7 +225,8 @@ function CursorCore({
     options.outerScale,
     scaleBySize,
     isActive,
-    enableOuterScale
+    enableOuterScale,
+    enableInnerScale
   ])
 
   // Cursors Click States
@@ -226,7 +235,7 @@ function CursorCore({
       scaleBySize(
         cursorInnerRef.current,
         options.innerSize,
-        options.innerScale * 1.2
+        enableInnerScale ? options.innerScale * innerScaleAmount : 1
       )
       scaleBySize(
         cursorOuterRef.current,
@@ -242,7 +251,9 @@ function CursorCore({
     scaleBySize,
     isActiveClickable,
     enableOuterScale,
-    outerScaleAmount
+    outerScaleAmount,
+    enableInnerScale,
+    innerScaleAmount
   ])
 
   // Cursor Visibility Statea
@@ -438,7 +449,9 @@ function AnimatedCursor({
   showSystemCursor,
   trailingSpeed,
   enableOuterScale,
-  outerScaleAmount
+  outerScaleAmount,
+  enableInnerScale,
+  innerScaleAmount
 }: AnimatedCursorProps) {
   const isTouchdevice = useIsTouchdevice()
   if (typeof window !== 'undefined' && isTouchdevice) {
@@ -459,6 +472,8 @@ function AnimatedCursor({
       trailingSpeed={trailingSpeed}
       enableOuterScale={enableOuterScale}
       outerScaleAmount={outerScaleAmount}
+      enableInnerScale={enableInnerScale}
+      innerScaleAmount={innerScaleAmount}
     >
       {children}
     </CursorCore>
